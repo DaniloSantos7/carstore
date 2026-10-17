@@ -14,18 +14,16 @@ import java.io.IOException;
 public class CreateCarServlet extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        String carName = request.getParameter("car-name");
+        String carName = req.getParameter("car-name");
 
-        Car car = new Car();
-        car.setName(carName);
+        Car car = new Car(carName);
 
-        CarDao carDao = new CarDao();
-        carDao.createCar(car);
+        new CarDao().createCar(car);
 
-        request.getRequestDispatcher("index.html").forward(request, response);
+        resp.sendRedirect("/find-all-cars");
     }
 
 }
